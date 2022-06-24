@@ -143,14 +143,21 @@ export default {
     const windowData = Object.fromEntries(
       new URL(window.location).searchParams.entries()
     );
+    const VALID_KEYS = ["filter", "page"];
 
-    if (windowData.filter) this.filter = windowData.filter;
+    VALID_KEYS.forEach(key => {
+      if (windowData[key]) {
+        this[key] = windowData[key];
+      }
+    });
 
-    if (windowData.page) this.page = windowData.page;
+    // if (windowData.filter) this.filter = windowData.filter;
+
+    // if (windowData.page) this.page = windowData.page;
 
     this.setTickerList();
 
-    const tickersData = localStorage.getItem("cryptprice-list");
+    const tickersData = localStorage.getItem("cryptoprice-list");
     if (tickersData) {
       this.tickers = JSON.parse(tickersData);
 
